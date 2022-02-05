@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -17,14 +18,18 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class TestCases extends BasePage {
     @BeforeClass
     public void setUpPage() {
         wd.navigate().to("https://demoqa.com/");
         wd.manage().window().maximize();
+        startPage.clickElements();
     }
-
 
     @DataProvider(name = "data text")
     public Object[][] dataProvider(){
@@ -33,13 +38,11 @@ public class TestCases extends BasePage {
                 {{faker.name().firstName()+" "+faker.name().lastName(),faker.internet().emailAddress(),faker.address().streetAddress(),faker.address().secondaryAddress()},
                 {faker.name().firstName()+" "+faker.name().lastName(),faker.internet().emailAddress(),faker.address().streetAddress(),faker.address().secondaryAddress()},
                 {faker.name().firstName()+" "+faker.name().lastName(),faker.internet().emailAddress(),faker.address().streetAddress(),faker.address().secondaryAddress()}};
-
     }
 
-    @Test(dataProvider ="data text")
+    @Test(dataProvider ="data text", priority = 70)
     public void testElementsTextBox(String fullName,String email, String currentAddress,String permanentAddress){
         wd.navigate().refresh();
-        startPage.clickElements();
         sidebarPage.clickTextBox();
         textBox.enterFullName(fullName);
         textBox.enterEmail(email);
@@ -50,7 +53,7 @@ public class TestCases extends BasePage {
                 +"Current Address :"+currentAddress+"\n"+ "Permananet Address :"+permanentAddress);
     }
 
-    @Test
+    @Test(priority = 60)
     public void testElementsCheckBox() {
         startPage.clickElements();
         sidebarPage.clickCheckBox();
@@ -61,7 +64,7 @@ public class TestCases extends BasePage {
                 "excelFile");
     }
 
-    @Test
+    @Test(priority = 50)
     public void testElementsRadioButton(){
         startPage.clickElements();
         sidebarPage.clickRadioButton();
@@ -75,7 +78,7 @@ public class TestCases extends BasePage {
         Assert.assertFalse(elementIsPresent);
     }
 
-    @Test
+    @Test(priority = 40)
     public void testElementWebTables() throws IOException {
         int i=0;
         File file=new File("src/test/java/TableData.xlsx");
@@ -95,7 +98,7 @@ public class TestCases extends BasePage {
         Assert.assertTrue(webTables.getTableRow(3).getText().contains("Petrovic"));
     }
 
-    @Test
+    @Test(priority = 30)
     public void testElementButton(){
         startPage.clickElements();
         sidebarPage.clickButtons();
@@ -108,6 +111,29 @@ public class TestCases extends BasePage {
         Assert.assertEquals(buttons.rightClickMessage.getText(),"You have done a right click");
         waiter(buttons.dynamicClickMessage);
         Assert.assertEquals(buttons.dynamicClickMessage.getText(),"You have done a dynamic click");
+    }
+
+    @Test(priority = 20)
+    public void testValidLinks() throws InterruptedException {
+        sidebarPage.clickLinks();
+        links.getHomeLink().click();
+        List<String> listOfElements=new ArrayList<String>(wd.getWindowHandles());
+        wd.switchTo().window(listOfElements.get(1));
+        Assert.assertEquals(wd.getCurrentUrl(),"https://demoqa.com/");
+    }
+
+    @Test(priority = 10)
+    public void testAPIcallLinks() throws InterruptedException {
+        sidebarPage.clickLinks();
+        links.getCreatedLink().click();
+        Thread.sleep(1000);
+        Assert.assertTrue(links.getResponseText().contains(links.getCreatedLink().getText()));
+        links.getMovedLink().click();
+        Thread.sleep(1000);
+        Assert.assertTrue(links.getResponseText().contains(links.getMovedLink().getText()));
+        links.getNotFoundLink().click();
+        Thread.sleep(1000);
+        Assert.assertTrue(links.getResponseText().contains(links.getNotFoundLink().getText()));
     }
 
 

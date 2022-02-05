@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class SidebarPage {
+public class SidebarPage{
     WebDriver wd;
 
     @FindBy(xpath ="//*[@id=\"app\"]/div/div/div[2]/div[1]/div/div/div[1]/span/div")
@@ -26,6 +26,9 @@ public class SidebarPage {
 
     @FindBy(xpath = "//*[@id=\"item-4\"]")
     WebElement buttons;
+
+    @FindBy(xpath = "//*[@id=\"item-5\"]")
+    WebElement links;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div/div/div[2]/div[1]/div/div/div[2]/span/div")
     WebElement forms;
@@ -62,4 +65,8 @@ public class SidebarPage {
         JavascriptExecutor jse=(JavascriptExecutor)wd;
         jse.executeScript("arguments[0].scrollIntoView(true);",buttons);
         buttons.click();}
+    public void clickLinks(){
+        JavascriptExecutor jse=(JavascriptExecutor)wd;
+        jse.executeScript("arguments[0].scrollIntoView(true);",links);
+        links.click();}
 }

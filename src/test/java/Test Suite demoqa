@@ -110,8 +110,28 @@ You have done a dynamic click
 +Test Description: Verify that clicking on link text navigates to stated page
 
 +Test steps:
-1.
+1. Navigate and click on "Links" button on the left side of the screen
+2. Navigate nd click on the "Home" linked text
+3. Assert that new tab is opened in browser,and it leads to home page
 
++Expected result:
+There should be new tab opened, that has URL "https://demoqa.com/" and is on the home page of the tested website
+
+1.7. Test case "API call Links"
++Test Description: Verify that links return stated message when clicked
+
++Test steps:
+1. Navigate and click on "Links" button on the left side of the screen
+2. Navigate and click on "Created" linked text
+3. Assert that there is a message present under the all links, that contains word "Created"
+4. Navigate and click on "Moved" linked text
+5. Assert that there is a message present under the all links, that contains word "Moved"
+6. Navigate and click on "Not Found" linked text
+7. Assert that there is a message present under the all links, that contains word "Not Found"
+
++Expected reuslt:
+There should be message that contains linked text that was clicked on present under the "Not Found" link text every
+time link is clicked on
 
 
 

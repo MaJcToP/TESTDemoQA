@@ -5,12 +5,14 @@ import Pages.Elements.CheckBox;
 import Pages.Elements.TextBox;
 import Pages.Elements.WebTables;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 
 import java.io.IOException;
@@ -25,24 +27,31 @@ public class BasePage {
     public CheckBox checkBox;
     public WebTables webTables;
     public Buttons buttons;
+    public Links links;
 
     @BeforeClass
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         wd=new ChromeDriver();
-        wdw=new WebDriverWait(wd, Duration.ofSeconds(5));
+        wdw=new WebDriverWait(wd, Duration.ofSeconds(10));
         startPage=new StartPage(wd);
         sidebarPage=new SidebarPage(wd);
         textBox=new TextBox(wd);
         checkBox=new CheckBox(wd);
         webTables=new WebTables(wd);
         buttons=new Buttons(wd);
+        links=new Links(wd);
+
     }
     @AfterClass
-    public void tearDown() throws IOException {
+    public void tearDown(){
         wd.manage().deleteAllCookies();
         wd.close();
         wd.quit();
+    }
+
+    @AfterSuite
+    public void taskKill() throws IOException {
         Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
     }
 
