@@ -1,0 +1,123 @@
+1)Test Scenario Elements*
++Tests Preconditions:
+-Navigate to https://demoqa.com page
+-Click on "Elements" field
++Tests Environment: Google Chrome Web Browser
+
+1.1 Test case "Text Box"
++Test Description: Verify that submit button works if all fields are filled with valid data
+
++Test steps:
+1. Navigate and click on "Text Box" button on the left side of the screen
+2. Navigate to "Full Name" text field ,click on it,and enter valid text
+3. Navigate to "Email" text field and ,click on it, and enter valid text
+4. Navigate to "Current Address" text field ,click on it, and enter valid text
+5. Navigate to "Permanent Address" text field and enter valid text
+6. Navigate and click on "Submit" button
+7. Assert that there is text with provided data shown under the text fields
+
++Test Parameters:
+-"Full Name" field text: Aleksandar
+-"Email" field text: alepetrovic93@gmail.com
+-"Current Address" field text: Maksima Gorkog 22
+-"Permanent Addres" field text: Dzona Kenedija 1
+
++Expected result
+There is text:
+
+"Name:Aleksandar
+ Email:alepetrovic93@gmail.com
+ Current Address :Maksima Gorkog 22
+ Permananet Address :Dzona Kenedija 1"
+
+ ,present below the text fields and "Submit" button
+
+ 1.2 Test case "Check Box"
+
+ +Test Description: Verify that Excel File.doc is clickable
+
+ +Test Steps:
+ 1.Navigate and click on "Check Box" button on the left side of the screen
+ 2.Navigate and click on the right pointed arrow,on the left side of the "Home" field
+ 3.Navigate and click on the right pointed arrow,on the left side of the "Downloads" field
+ 3.Navigate adn click on checkbox on the "Excel File.doc" field
+ 4.Assert that checkbox that was clicked is checked
+
+ +Expected result:
+ There is Text:
+ "You have selected : excelFile"
+ ,written under the "Excel File.doc" field
+
+1.3 Test case "Radio Button"
++Test Description: Verify that clicking on radiobutton "No" is disabled
+
++Test Steps:
+1.Navigate and click on "Radio Button" button on the left side of the screen
+2.Navigate and hover the radio button that has "No" written next to it
+3.Assert that cursor changes to "blocked"
+4.Click on that radio button
+5.Assert that there is no text written underneath
+
++Expected result:
+Element is not clickable and nothing happens if it is clicked
+
+1.4 Test case "Web Tables"
++Test Description: Verify that new row is inserted into table when Add button is clicked and valid data is provided
+
++Test Steps:
+1. Navigate and click on "Web Tables" button on the left side of the screen
+2. Navigate and click on "Add" button
+3. Navigate to "First Name" text field ,click on it,and enter valid text
+4. Navigate to "Last Name" text field ,click on it,and enter valid text
+5. Navigate to "Email" text field and ,click on it, and enter valid text
+6. Navigate to "Age" text field ,click on it, and enter valid number
+7. Navigate to "Salary" text field and enter valid number
+8. Navigate to "Department" text field and ,click on it, and enter valid text
+9. Navigate and click on "Submit" button
+10. Assert that new row with inserted data is added to the table
+
++Test Parameters:
+-"Full Name" field text: Aleksandar
+-"Last Name" field text: Petrovic
+-"Email" field text: alepetrovic93@gmail.com
+-"Age" field text: 28
+-"Salary" field text: 1200
+-"Department" field text: QA
+
++Expected result:
+There should be :
+Aleksandar Petrovic 28 alepetrovic93@gmail.com 1200 QA
+,written in the fourth row of the table
+
+1.5 Test case "Buttons"
++Test Description: Verify that action stated on the buttons can be performed
+
++Test steps:
+1. Navigate and click on "Buttons" button on the left side of the screen
+2. Navigate and double click on "Double Click Me" button
+3. Navigate and right click on "Right Click Me" button
+4. Navigate and click on "Click Me" button
+5. Assert that there is text that describes the performed actions written bellow
+
++Expected result:
+There is text:
+You have done a double click
+You have done a right click
+You have done a dynamic click
+,written under the "Click Me" button
+
+1.6 Test case "Valid Links"
++Test Description: Verify that clicking on link text navigates to stated page
+
++Test steps:
+1.
+
+
+
+
+
+
+
+
+
+
