@@ -1,4 +1,4 @@
-package Pages;
+package Pages.Elements;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;

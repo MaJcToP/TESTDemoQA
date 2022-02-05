@@ -1,11 +1,7 @@
 package Pages;
 
-import Pages.Elements.Buttons;
-import Pages.Elements.CheckBox;
-import Pages.Elements.TextBox;
-import Pages.Elements.WebTables;
+import Pages.Elements.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
