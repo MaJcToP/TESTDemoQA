@@ -14,6 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -124,17 +125,20 @@ public class TestCases extends BasePage {
 
     @Test(priority = 10)
     public void testAPIcallLinks() throws InterruptedException {
+        SoftAssert softAssert=new SoftAssert();
         sidebarPage.clickLinks();
         links.getCreatedLink().click();
         Thread.sleep(1000);
-        Assert.assertTrue(links.getResponseText().contains(links.getCreatedLink().getText()));
+        softAssert.assertTrue(links.getResponseText().contains(links.getCreatedLink().getText()));
         links.getMovedLink().click();
         Thread.sleep(1000);
-        Assert.assertTrue(links.getResponseText().contains(links.getMovedLink().getText()));
+        softAssert.assertTrue(links.getResponseText().contains(links.getMovedLink().getText()));
         links.getNotFoundLink().click();
         Thread.sleep(1000);
         Assert.assertTrue(links.getResponseText().contains(links.getNotFoundLink().getText()));
     }
+
+
 
 
 
