@@ -37,8 +37,6 @@ public class Links{
 
     public WebElement getLinkResponse() {
         WebElement linkResponse = wd.findElement(By.id("linkResponse"));
-        JavascriptExecutor jse=(JavascriptExecutor)wd;
-        jse.executeScript("arguments[0].scrollIntoView(true);",linkResponse);
         return linkResponse;
     }
 

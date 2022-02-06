@@ -133,6 +133,23 @@ There should be new tab opened, that has URL "https://demoqa.com/" and is on the
 There should be message that contains linked text that was clicked on present under the "Not Found" link text every
 time link is clicked on
 
+1.8 Test case case invalid Link
++Test Description: Verify that clicking on broken link returns 500 status code
+
++Test steps:
+1. Navigate and click on "Broken Links - Images" button on the left side of the screen
+2. Navigate and click on the "Click Here for Broken Link" linked text
+3. Assert that new page is opened with 500 status code
+
++Expected result:
+-There should be:
+"Status Codes
+This page returned a 500 status code.
+For a definition and common list of HTTP status codes, go here"
+,text shown on new page.
+
+
+
 
 
 

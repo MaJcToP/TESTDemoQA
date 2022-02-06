@@ -1,13 +1,11 @@
-package HappyPath;
+package Tests;
 
 import Pages.BasePage;
-import Pages.SidebarPage;
 import com.github.javafaker.Faker;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -19,10 +17,10 @@ import org.testng.asserts.SoftAssert;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class TestCases extends BasePage {
     @BeforeClass
@@ -80,7 +78,7 @@ public class TestCases extends BasePage {
     }
 
     @Test(priority = 40)
-    public void testElementWebTables() throws IOException {
+    public void testElementsWebTables() throws IOException {
         int i=0;
         File file=new File("src/test/java/TableData.xlsx");
         FileInputStream fls=new FileInputStream(file);
@@ -100,7 +98,7 @@ public class TestCases extends BasePage {
     }
 
     @Test(priority = 30)
-    public void testElementButton(){
+    public void testElementsButton(){
         startPage.clickElements();
         sidebarPage.clickButtons();
         buttons.doubleClickButton();
@@ -115,7 +113,7 @@ public class TestCases extends BasePage {
     }
 
     @Test(priority = 20)
-    public void testValidLinks() throws InterruptedException {
+    public void testElementsValidLinks() throws InterruptedException {
         sidebarPage.clickLinks();
         links.getHomeLink().click();
         List<String> listOfElements=new ArrayList<String>(wd.getWindowHandles());
@@ -124,20 +122,43 @@ public class TestCases extends BasePage {
     }
 
     @Test(priority = 10)
-    public void testAPIcallLinks() throws InterruptedException {
+    public void testElementsAPIcallLinks() throws InterruptedException {
         SoftAssert softAssert=new SoftAssert();
         sidebarPage.clickLinks();
         links.getCreatedLink().click();
+        scrollIntoView(links.getLinkResponse());
         Thread.sleep(1000);
         softAssert.assertTrue(links.getResponseText().contains(links.getCreatedLink().getText()));
         links.getMovedLink().click();
+        scrollIntoView(links.getLinkResponse());
         Thread.sleep(1000);
         softAssert.assertTrue(links.getResponseText().contains(links.getMovedLink().getText()));
         links.getNotFoundLink().click();
         Thread.sleep(1000);
+        scrollIntoView(links.getLinkResponse());
         Assert.assertTrue(links.getResponseText().contains(links.getNotFoundLink().getText()));
     }
 
+    @Test(priority = 80)
+    public void testElementsBrokenLink() throws IOException {
+        sidebarPage.clickBrknLnImg();
+        String linkURL=brokenLinksImages.getBrokenLink().getAttribute("href");
+        URL url=new URL(linkURL);
+        HttpURLConnection httpURLConnect=(HttpURLConnection)url.openConnection();
+        httpURLConnect.setConnectTimeout(5000);
+        httpURLConnect.connect();
+        System.out.println(httpURLConnect.getResponseMessage());
+        Assert.assertEquals(httpURLConnect.getResponseCode(),500);
+    }
+
+    @Test(priority = 90)
+    public void testElementsBrokenImage(){
+        sidebarPage.clickBrknLnImg();
+        WebElement brokenImage= brokenLinksImages.getListImages().get(3);
+        boolean imageDisplayed = (Boolean) jse.executeScript
+                ("return (typeof arguments[0].naturalWidth !=\"undefined\" && arguments[0].naturalWidth > 0);", brokenImage);
+        Assert.assertFalse(imageDisplayed);
+    }
 
 
 

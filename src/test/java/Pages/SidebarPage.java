@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SidebarPage{
     WebDriver wd;
+    JavascriptExecutor jse;
 
     @FindBy(xpath ="//*[@id=\"app\"]/div/div/div[2]/div[1]/div/div/div[1]/span/div")
     WebElement elements;
@@ -30,6 +31,9 @@ public class SidebarPage{
     @FindBy(xpath = "//*[@id=\"item-5\"]")
     WebElement links;
 
+    @FindBy(xpath = "//*[@id=\"item-6\"]")
+    WebElement brknLnImg;
+
     @FindBy(xpath = "//*[@id=\"app\"]/div/div/div[2]/div[1]/div/div/div[2]/span/div")
     WebElement forms;
 
@@ -48,6 +52,7 @@ public class SidebarPage{
 
     public SidebarPage(WebDriver wd) {
         this.wd = wd;
+        jse=(JavascriptExecutor)wd;
         PageFactory.initElements(wd,this);
     }
 
@@ -55,18 +60,21 @@ public class SidebarPage{
         elements.click();
     }
     public void clickTextBox(){
-        JavascriptExecutor jse=(JavascriptExecutor)wd;
         jse.executeScript("arguments[0].scrollIntoView(true);",textBox);
         textBox.click();}
     public void clickCheckBox(){checkBox.click();}
     public void clickRadioButton(){radioButton.click();}
     public void clickWebTables(){webTables.click();}
     public void clickButtons(){
-        JavascriptExecutor jse=(JavascriptExecutor)wd;
         jse.executeScript("arguments[0].scrollIntoView(true);",buttons);
         buttons.click();}
     public void clickLinks(){
-        JavascriptExecutor jse=(JavascriptExecutor)wd;
         jse.executeScript("arguments[0].scrollIntoView(true);",links);
         links.click();}
+
+    public void clickBrknLnImg(){
+        jse.executeScript("arguments[0].scrollIntoView(true);",brknLnImg);
+        brknLnImg.click();
+    }
+
 }

@@ -1,4 +1,4 @@
-package Pages;
+package Pages.Elements;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,12 +7,12 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class BorkenLinksImages {
+public class BrokenLinksImages {
     WebDriver wd;
     private WebElement brokenLink;
     private List<WebElement> listImages;
 
-    public BorkenLinksImages(WebDriver wd) {
+    public BrokenLinksImages(WebDriver wd) {
         this.wd = wd;
     }
 
@@ -23,4 +23,5 @@ public class BorkenLinksImages {
     public List<WebElement> getListImages() {
         return wd.findElements(By.tagName("img"));
     }
+
 }
