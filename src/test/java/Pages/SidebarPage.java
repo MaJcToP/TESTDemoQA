@@ -34,6 +34,9 @@ public class SidebarPage{
     @FindBy(xpath = "//*[@id=\"item-6\"]")
     WebElement brknLnImg;
 
+    @FindBy(xpath = "//*[@id=\"item-7\"]")
+    WebElement upload;
+
     @FindBy(xpath = "//*[@id=\"app\"]/div/div/div[2]/div[1]/div/div/div[2]/span/div")
     WebElement forms;
 
@@ -75,6 +78,11 @@ public class SidebarPage{
     public void clickBrknLnImg(){
         jse.executeScript("arguments[0].scrollIntoView(true);",brknLnImg);
         brknLnImg.click();
+    }
+
+    public void clickUpload(){
+        jse.executeScript("arguments[0].scrollIntoView(true);", upload);
+        upload.click();
     }
 
 }

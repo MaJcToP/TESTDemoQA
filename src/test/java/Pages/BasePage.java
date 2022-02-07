@@ -27,6 +27,7 @@ public class BasePage {
     public Buttons buttons;
     public Links links;
     public BrokenLinksImages brokenLinksImages;
+    public Upload upload;
 
     @BeforeClass
     public void setUp(){
@@ -42,6 +43,7 @@ public class BasePage {
         buttons=new Buttons(wd);
         links=new Links(wd);
         brokenLinksImages=new BrokenLinksImages(wd);
+        upload=new Upload(wd);
 
     }
     @AfterClass

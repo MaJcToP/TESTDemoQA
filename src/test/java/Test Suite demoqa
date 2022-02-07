@@ -148,6 +148,36 @@ This page returned a 500 status code.
 For a definition and common list of HTTP status codes, go here"
 ,text shown on new page.
 
+1.9 Test case Invalid Picture
++Test Description: Verify that all images are visible on the webpage
+
++Test steps:
+1. Navigate and click on "Broken Links - Images" button on the left side of the screen
+2. Assert that all pictures have visible representation of what them should look like
+
++Expected result:
+There should be no unloaded pictures, or pictures that do not have visible representation of image inside.
+
+1.10 Test case Upload File
++Test Description: Verify that file can be uploaded using valid file path
+
++Test steps:
+1. Navigate and click on "Upload and Download" button on the left side of the screen
+2. Navigate and click on the "Choose file" button;
+3. In the opened window, at the bottom of the page, enter valid file name in the "File name" text box
+4. Assert that there is no other file with the same name
+5. Navigate and click on "Open" button
+6. Assert that there is file path written under the "Choose file" button
+
++Test Parameters:
+-File with valid name and extension supported: "Text.txt"
+
++Expected result:
+There should be:
+"C:\fakepath\Text.txt"
+text written under the "Choose file" button
+
+
 
 
 

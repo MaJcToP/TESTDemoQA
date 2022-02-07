@@ -2,11 +2,10 @@ package Tests;
 
 import Pages.BasePage;
 import com.github.javafaker.Faker;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -14,11 +13,14 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class TestCases extends BasePage {
         wd.navigate().to("https://demoqa.com/");
         wd.manage().window().maximize();
         startPage.clickElements();
+        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
     }
 
     @DataProvider(name = "data text")
@@ -152,14 +155,50 @@ public class TestCases extends BasePage {
     }
 
     @Test(priority = 90)
-    public void testElementsBrokenImage(){
+    public void testElementsBrokenImage() {
+        SoftAssert softAssert=new SoftAssert();
         sidebarPage.clickBrknLnImg();
-        WebElement brokenImage= brokenLinksImages.getListImages().get(3);
-        boolean imageDisplayed = (Boolean) jse.executeScript
-                ("return (typeof arguments[0].naturalWidth !=\"undefined\" && arguments[0].naturalWidth > 0);", brokenImage);
-        Assert.assertFalse(imageDisplayed);
+//        WebElement brokenImage = brokenLinksImages.getListImages().get(3);
+        boolean imageDisplayed=true;
+        for (WebElement element : brokenLinksImages.getListImages()) {
+            try {
+            imageDisplayed= (Boolean) jse.executeScript
+                    ("return (typeof arguments[0].naturalWidth !=\"undefined\" && arguments[0].naturalWidth > 0);", element);
+                if(!imageDisplayed){
+                    scrollIntoView(element);
+                    File screenshot = ((TakesScreenshot) wd).getScreenshotAs(OutputType.FILE);
+                    FileUtils.copyFile(screenshot, new File("src/test/java/screenshot.png"));
+                    System.out.println(element.getAttribute("src"));
+                    softAssert.assertFalse(imageDisplayed);
+                }else Assert.assertTrue(imageDisplayed);
+            } catch (IOException e) {}
+        }
     }
 
+    @Test
+    public void testElementsUploadFile() throws AWTException, InterruptedException {
+        sidebarPage.clickUpload();
+        Actions action=new Actions(wd);
+        action.moveToElement(upload.getUploadButton()).click().perform();
+        Thread.sleep(1000);
+        Robot robot=new Robot();
+        robot.keyPress(KeyEvent.VK_SHIFT);
+        robot.keyPress(KeyEvent.VK_T);
+        robot.keyRelease(KeyEvent.VK_SHIFT);
+        robot.keyPress(KeyEvent.VK_E);
+        robot.keyPress(KeyEvent.VK_X);
+        robot.keyPress(KeyEvent.VK_T);
+        robot.keyPress(KeyEvent.VK_PERIOD);
+        robot.keyPress(KeyEvent.VK_T);
+        robot.keyPress(KeyEvent.VK_X);
+        robot.keyPress(KeyEvent.VK_T);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        Thread.sleep(1000);
+        Assert.assertEquals(upload.getReturnTextField().getText(),"C:\\fakepath\\Text.txt");
+//        upload.getUploadButton().sendKeys
+//                ("C:\\Users\\Acer\\IdeaProjects\\TESTDemoQA\\src\\test\\java\\screenshot.png");
+//        Assert.assertEquals(upload.getReturnTextField().getText(),"C:\\fakepath\\screenshot.png");
+    }
 
 
 
